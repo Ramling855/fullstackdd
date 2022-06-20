@@ -1,26 +1,48 @@
 import { Button, Form, Input } from "antd";
 import React from "react";
 import axios from "axios";
+import { useState } from "react";
 
 const App = () => {
-  const onFinish = (name) => {
-    // var name=values.name;
-    // var email=values.email;
-    // var password=values.password;
+    const[file,setFile]=useState();
+  const onFinish = (values) => {
+const formData=new FormData();
+
+formData.append("name",values.name)
+formData.append("email",values.email)
+formData.append("address",values.address)
+formData.append("phone",values.phone)
+formData.append("job",values.job)
+formData.append("salary",values.salary)
+formData.append("education",values.education)
+formData.append("location",values.location)
+// formData.append("address",values.address)
+formData.append("file",file)
+
+const configAxios={
+    headers:{
+        "content-type":"multipart/form-data"
+    }
+}
+
+
     axios
-      .post("https://ramlingsurvase.herokuapp.com/signup", { name })
+      .post("https://thawing-reef-81365.herokuapp.com/form/postall",formData,configAxios )
       .then(() => console.log("data posted"))
       .catch(() => {
         console.log("errr");
       });
-    console.log("Success:", name);
+    console.log("Success:", values);
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+  const onFileChange=(event)=>{
+    setFile(event.target.files[0])
+  }
 
-  return (
+  return (<div >
     <Form
       name="basic"
       labelCol={{
@@ -49,8 +71,8 @@ const App = () => {
         <Input />
       </Form.Item>
       <Form.Item
-        label="quantity"
-        name="quantity"
+        label="email"
+        name="email"
         rules={[
           {
             required: true,
@@ -61,8 +83,8 @@ const App = () => {
         <Input />
       </Form.Item>
       <Form.Item
-        label="brand"
-        name="brand"
+        label="phone"
+        name="phone"
         rules={[
           {
             required: true,
@@ -73,8 +95,8 @@ const App = () => {
         <Input />
       </Form.Item>
       <Form.Item
-        label="price"
-        name="price"
+        label="address"
+        name="address"
         rules={[
           {
             required: true,
@@ -83,6 +105,56 @@ const App = () => {
         ]}
       >
         <Input />
+      </Form.Item>
+      <Form.Item
+        label="education"
+        name="education"
+        rules={[
+          {
+            required: true,
+            message: "Please input your username!"
+          }
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        label="Job Location"
+        name="job"
+        rules={[
+          {
+            required: true,
+            message: "Please input your username!"
+          }
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        label="Job salary"
+        name="salary"
+        rules={[
+          {
+            required: true,
+            message: "Please input your username!"
+          }
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="image"
+        name="img"
+        rules={[
+          {
+            required: true,
+            message: "Please input your username!"
+          }
+        ]}
+      >
+        
+    <input type="file"  onChange={onFileChange}/>
       </Form.Item>
 
       <Form.Item
@@ -95,7 +167,7 @@ const App = () => {
           Submit
         </Button>
       </Form.Item>
-    </Form>
+    </Form></div>
   );
 };
 
