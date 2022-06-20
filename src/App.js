@@ -1,7 +1,6 @@
-// import "./App.css";
+import "./App.css";
 import React from "react";
 import Signup from "./Signup";
-import Login from "./Login";
 import Data from "./Data";
 import {
   BrowserRouter as Router,
@@ -13,18 +12,33 @@ import {
 export default function App() {
   return (
     <Router>
-      <div className="App">
-        <Link to="signup">
-          <button>Add data</button>
-        </Link>
-        <br />
-        <Link to="Data">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <Link to="Data">
           <button>home</button>
         </Link>
+        
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown"><Link to="signup">
+          <button>Add data</button>
+        </Link>
+      <ul class="navbar-nav">
+      
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      <div className="App">
+        
+        
         {/* <Switch> */}
+        
         <Routes>
           <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/Data" element={<Data />} />
         </Routes>
         {/* </Switch> */}
